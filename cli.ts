@@ -1,9 +1,8 @@
+/* eslint-disable import/no-unassigned-import */
+
 import {program} from 'commander';
 
-import {register as registerMarks} from './workspaces/marks/src/index.js';
-import {register as registerUpcomingTests} from './workspaces/upcoming-tests/src/index.js';
-
-registerMarks(program);
-registerUpcomingTests(program);
+import './workspaces/marks/src/index.js';
+import './workspaces/upcoming-tests/src/index.js';
 
 program.parse();
