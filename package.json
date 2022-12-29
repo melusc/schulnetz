@@ -1,0 +1,24 @@
+{
+	"name": "schulnetz-cli",
+	"packageManager": "yarn@3.3.1",
+	"private": true,
+	"type": "module",
+	"devDependencies": {
+		"@lusc/tsconfig": "^2.0.0",
+		"esbuild": "^0.16.12",
+		"prettier": "^2.8.1",
+		"typescript": "^4.9.4",
+		"xo": "^0.53.1"
+	},
+	"scripts": {
+		"build": "tsc && yarn esbuild cli.ts --bundle --packages=external --outfile=dist/cli.js --format=esm --sourcemap",
+		"fmt": "prettier -w . && xo --fix",
+		"start": "node dist/cli"
+	},
+	"workspaces": [
+		"workspaces/*"
+	],
+	"dependencies": {
+		"commander": "^9.4.1"
+	}
+}

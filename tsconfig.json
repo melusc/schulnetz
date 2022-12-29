@@ -1,0 +1,9 @@
+{
+	"extends": "@lusc/tsconfig",
+	"compilerOptions": {
+		"noEmit": true,
+		"resolveJsonModule": true,
+		"baseUrl": "."
+	},
+	"include": ["workspaces/**/*.ts", "cli.ts"]
+}
