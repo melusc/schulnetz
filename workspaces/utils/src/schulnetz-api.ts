@@ -85,7 +85,10 @@ export class SchulNetz {
 			throw new Error('Could not find startPageAnchor');
 		}
 
-		const id = new URL($startPageAnchor.attr('href')!, this.baseUrl).searchParams.get('id');
+		const id = new URL(
+			$startPageAnchor.attr('href')!,
+			this.baseUrl,
+		).searchParams.get('id');
 		if (!id) {
 			throw new Error('Could not find id');
 		}
@@ -93,10 +96,7 @@ export class SchulNetz {
 		this.#id = id;
 	}
 
-	async fetch(
-		url: string,
-		init?: RequestInit,
-	): Promise<Response> {
+	async fetch(url: string, init?: RequestInit): Promise<Response> {
 		const urlParsed = new URL(url, this.baseUrl);
 		if (this.#id) {
 			urlParsed.searchParams.set('id', this.#id);

@@ -14,7 +14,7 @@ export function register(program: Command) {
 		const {rows, $} = await login();
 
 		const marks = getMarks(rows, $);
-		const filtered = filter(marks);
+		const filtered = await filter(marks);
 		const grouped = group(filtered);
 		const result = calculate(grouped);
 

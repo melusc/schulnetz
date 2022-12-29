@@ -1,0 +1,8 @@
+{
+	"upcoming-tests": {
+		"filter": ["^any-regex-here", "should match: subject-year-teacher"]
+	},
+	"marks": {
+		"filter": ["subject-year-teacher"]
+	}
+}

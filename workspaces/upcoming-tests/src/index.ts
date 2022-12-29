@@ -93,7 +93,7 @@ export function register(program: Command) {
 			tableArray.push(row as Required<TableRow>);
 		}
 
-		filterTableInPlace(tableArray);
+		await filterTableInPlace(tableArray);
 
 		const collator = new Intl.Collator(undefined, {
 			sensitivity: 'base',

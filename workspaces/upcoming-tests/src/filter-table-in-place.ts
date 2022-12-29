@@ -1,11 +1,19 @@
-import toFilter from '../filter.json' assert {type: 'json'};
+import ow from 'ow';
 
 import type {TableRow} from './index.d.js';
+import {getConfig} from '#utils/config.js';
 
-export const filterTableInPlace = (table: TableRow[]): void => {
+export const filterTableInPlace = async (table: TableRow[]): Promise<void> => {
+	const config = await getConfig('upcoming-tests');
+	ow(
+		config,
+		ow.object.exactShape({
+			filter: ow.array.ofType(ow.string.nonBlank),
+		}),
+	);
 	const regExps: RegExp[] = [];
 
-	for (const item of toFilter) {
+	for (const item of config.filter) {
 		regExps.push(new RegExp(item, 'i'));
 	}
 

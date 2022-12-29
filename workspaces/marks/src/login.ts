@@ -2,19 +2,19 @@ import {load} from 'cheerio';
 
 import {SchulNetz} from '#utils/schulnetz-api.js';
 
-export async function login(): Promise<{rows: cheerio.Cheerio[]; $: cheerio.Root}> {
+export async function login(): Promise<{
+	rows: cheerio.Cheerio[];
+	$: cheerio.Root;
+}> {
 	const schulNetz = new SchulNetz();
 	await schulNetz.login();
 
-	const marksPageRequest = await schulNetz.fetch(
-		'index.php?pageid=21311',
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
+	const marksPageRequest = await schulNetz.fetch('index.php?pageid=21311', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
 		},
-	);
+	});
 
 	const marksPageText = await marksPageRequest.text();
 	const $marksPage = load(marksPageText);
