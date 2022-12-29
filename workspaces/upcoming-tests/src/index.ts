@@ -8,7 +8,7 @@ import kleur from 'kleur';
 import ow from 'ow';
 import {table} from 'table';
 
-import {filterTableInPlace} from './filter-table-in-place.js';
+import {filter} from './filter.js';
 import {formatDate} from './format-date.js';
 import type {TableRow} from './index.d.js';
 
@@ -89,14 +89,14 @@ program.command('upcoming-tests').action(async () => {
 		tableArray.push(row as Required<TableRow>);
 	}
 
-	await filterTableInPlace(tableArray);
+	const filtered = await filter(tableArray);
 
 	const collator = new Intl.Collator(undefined, {
 		sensitivity: 'base',
 		numeric: true,
 	});
 
-	tableArray.sort(
+	filtered.sort(
 		(
 			{start_date: start_dateA, text: textA},
 			{start_date: start_dateB, text: textB},
@@ -105,10 +105,10 @@ program.command('upcoming-tests').action(async () => {
 			|| collator.compare(textA, textB),
 	);
 
-	if (tableArray.length > 0) {
+	if (filtered.length > 0) {
 		const finalTable = [
 			keys.map(({title}) => kleur.bold(kleur.blue(title))),
-			...tableArray.map(row => {
+			...filtered.map(row => {
 				const result: string[] = [];
 
 				for (const {key} of keys) {

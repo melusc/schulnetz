@@ -3,7 +3,7 @@ import ow from 'ow';
 import type {TableRow} from './index.d.js';
 import {getConfig} from '#utils/config.js';
 
-export const filterTableInPlace = async (table: TableRow[]): Promise<void> => {
+export async function filter(table: readonly TableRow[]): Promise<TableRow[]> {
 	const config = await getConfig('upcoming-tests');
 	ow(
 		config,
@@ -17,14 +17,5 @@ export const filterTableInPlace = async (table: TableRow[]): Promise<void> => {
 		regExps.push(new RegExp(item, 'i'));
 	}
 
-	for (const regExp of regExps) {
-		for (let i = table.length - 1; i >= 0; --i) {
-			for (const cell of Object.values(table[i]!)) {
-				if (regExp.test(cell)) {
-					table.splice(i, 1);
-					break;
-				}
-			}
-		}
-	}
-};
+	return table.filter(row => !regExps.some(regExp => !regExp.test(row.text)));
+}
