@@ -94,12 +94,12 @@ export class SchulNetz {
 	}
 
 	async fetch(
-		url: string | URL,
+		url: string,
 		init?: RequestInit,
 	): Promise<Response> {
-		url = new URL(url, this.baseUrl);
+		const urlParsed = new URL(url, this.baseUrl);
 		if (this.#id) {
-			url.searchParams.set('id', this.#id);
+			urlParsed.searchParams.set('id', this.#id);
 		}
 
 		init ??= {};
@@ -108,7 +108,7 @@ export class SchulNetz {
 		headers.set('User-Agent', this.userAgent);
 		headers.set('Cookie', this.#cookieJar.toString());
 
-		const request = await fetch(url, init);
+		const request = await fetch(urlParsed, init);
 
 		const cookie = request.headers.get('Set-Cookie');
 		if (cookie) {

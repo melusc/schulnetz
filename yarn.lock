@@ -3821,6 +3821,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"upcoming-tests@workspace:workspaces/upcoming-tests":
+  version: 0.0.0-use.local
+  resolution: "upcoming-tests@workspace:workspaces/upcoming-tests"
+  dependencies:
+    "@types/node": ^18.11.18
+    cheerio: ^1.0.0-rc.12
+    kleur: ^4.1.5
+    ow: ^1.1.0
+    table: ^6.8.1
+  languageName: unknown
+  linkType: soft
+
 "uri-js@npm:^4.2.2":
   version: 4.4.1
   resolution: "uri-js@npm:4.4.1"
