@@ -1,10 +1,6 @@
-import {readFile} from 'node:fs/promises';
-
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {type Command} from 'commander';
-import {parse} from 'dotenv';
 import kleur from 'kleur';
-import ow from 'ow';
 import {table} from 'table';
 
 import {calculate} from './calculate.js';
@@ -15,21 +11,7 @@ import {login} from './login.js';
 
 export function register(program: Command) {
 	program.command('marks').action(async () => {
-		const envFile = await readFile(new URL('../.env', import.meta.url));
-		const config = parse(envFile);
-
-		ow(
-			config,
-			ow.object.partialShape({
-				snUsername: ow.string,
-				snPassword: ow.string,
-			}),
-		);
-
-		const {rows, $} = await login({
-			username: config.snUsername,
-			password: config.snPassword,
-		});
+		const {rows, $} = await login();
 
 		const marks = getMarks(rows, $);
 		const filtered = filter(marks);

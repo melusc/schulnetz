@@ -3,7 +3,10 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"resolveJsonModule": true,
-		"baseUrl": "."
+		"baseUrl": ".",
+		"paths": {
+			"#utils/*": ["workspaces/utils/src/*"]
+		}
 	},
 	"include": ["workspaces/**/*.ts", "cli.ts"]
 }
