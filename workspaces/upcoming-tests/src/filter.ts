@@ -1,6 +1,7 @@
 import ow from 'ow';
 
-import type {TableRow} from './index.d.js';
+import {type TableRow} from './get-data.js';
+
 import {getConfig} from '#utils/config.js';
 
 export async function filter(table: readonly TableRow[]): Promise<TableRow[]> {
