@@ -54,7 +54,7 @@ program
 		);
 		const schedulerApiBody = await schedulerApiRequest.text();
 
-		await schulNetz.fetch('index.php?pageid=9999', {method: 'head'});
+		await schulNetz.logout();
 
 		ow(
 			schedulerApiBody,

@@ -24,17 +24,7 @@ export async function login(): Promise<{
 		throw new Error('Could not find table of marks.');
 	}
 
-	const logoutUrl = $marksPage('a[href^="index.php?pageid=9999"]').attr('href');
-
-	if (logoutUrl) {
-		const fullLogoutUrl = `${logoutUrl}`;
-
-		try {
-			await schulNetz.fetch(fullLogoutUrl, {
-				method: 'HEAD',
-			});
-		} catch {}
-	}
+	await schulNetz.logout();
 
 	const result: cheerio.Cheerio[] = [];
 

@@ -96,6 +96,10 @@ export class SchulNetz {
 		this.#id = id;
 	}
 
+	async logout(): Promise<void> {
+		await this.fetch('index.php?pageid=9999', {method: 'head'});
+	}
+
 	async fetch(url: string, init?: RequestInit): Promise<Response> {
 		const urlParsed = new URL(url, this.baseUrl);
 		if (this.#id) {
