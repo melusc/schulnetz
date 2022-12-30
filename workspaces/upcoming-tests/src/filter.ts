@@ -17,5 +17,5 @@ export async function filter(table: readonly TableRow[]): Promise<TableRow[]> {
 		regExps.push(new RegExp(item, 'i'));
 	}
 
-	return table.filter(row => !regExps.some(regExp => !regExp.test(row.text)));
+	return table.filter(row => !regExps.some(regExp => regExp.test(row.text)));
 }
