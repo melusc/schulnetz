@@ -5,4 +5,6 @@ import {program} from 'commander';
 import './workspaces/marks/src/index.js';
 import './workspaces/upcoming-tests/src/index.js';
 
-program.parse();
+program.name('schulnetz').allowExcessArguments().enablePositionalOptions();
+
+await program.parseAsync();
