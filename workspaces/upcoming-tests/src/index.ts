@@ -46,11 +46,6 @@ program
 
 		const schedulerApiRequest = await schulNetz.fetch(
 			`scheduler_processor.php?${parameters.toString()}&pageid=1`,
-			{
-				headers: {
-					'content-type': 'application/x-www-form-urlencoded',
-				},
-			},
 		);
 		const schedulerApiBody = await schedulerApiRequest.text();
 
@@ -133,6 +128,6 @@ program
 				}),
 			);
 		} else {
-			console.log('Table was empty');
+			console.log('No tests in the next month');
 		}
 	});
