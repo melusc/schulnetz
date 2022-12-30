@@ -6,9 +6,21 @@ import ow from 'ow';
 
 import {CookieJar} from './cookie-jar.js';
 
-class IncorrectCredentials extends Error {
+class IncorrectCredentialsError extends Error {
 	constructor() {
 		super('Incorrect credentials.');
+	}
+}
+
+class LoggedOutError extends Error {
+	constructor(redirectUrl: URL) {
+		super('Logged out, redirected to ' + redirectUrl.href);
+	}
+}
+
+class StatusError extends Error {
+	constructor(status: number, statusText: string) {
+		super(`${status}: ${statusText}`);
 	}
 }
 
@@ -34,17 +46,15 @@ export class SchulNetz {
 		);
 		const {snUsername: username, snPassword: password} = config;
 
-		const loginhashRequest = await this.fetch(
+		const {response: loginHashResponse, text: loginHashText} = await this.fetch(
 			'https://www.schul-netz.com/ausserschwyz/loginto.php?pageid=21311&mode=0&lang=',
 		);
 
-		if (!loginhashRequest.ok) {
-			throw new Error(loginhashRequest.statusText);
+		if (!loginHashResponse.ok) {
+			throw new Error(loginHashResponse.statusText);
 		}
 
-		const loginhashText = await loginhashRequest.text();
-
-		const $loginhash = load(loginhashText);
+		const $loginhash = load(loginHashText);
 		const loginhash = $loginhash('input[name="loginhash"]').val();
 
 		if (!loginhash) {
@@ -57,7 +67,7 @@ export class SchulNetz {
 			loginhash,
 		}).toString();
 
-		const startPageRequest = await this.fetch(
+		const {response: startPageResponse, text: startPageText} = await this.fetch(
 			'https://www.schul-netz.com/ausserschwyz/index.php?pageid=1',
 			{
 				method: 'POST',
@@ -68,17 +78,16 @@ export class SchulNetz {
 			},
 		);
 
-		if (!startPageRequest.ok) {
-			throw new Error(startPageRequest.statusText);
+		if (!startPageResponse.ok) {
+			throw new Error(startPageResponse.statusText);
 		}
 
-		const startPageUrl = new URL(startPageRequest.url);
+		const startPageUrl = new URL(startPageResponse.url);
 
 		if (startPageUrl.pathname !== '/ausserschwyz/index.php') {
-			throw new IncorrectCredentials();
+			throw new IncorrectCredentialsError();
 		}
 
-		const startPageText = await startPageRequest.text();
 		const $startPage = load(startPageText);
 		const $startPageAnchor = $startPage('a[href*="?pageid=1&"]');
 		if ($startPageAnchor.length === 0) {
@@ -97,10 +106,32 @@ export class SchulNetz {
 	}
 
 	async logout(): Promise<void> {
-		await this.fetch('index.php?pageid=9999', {method: 'head'});
+		await this.page('9999');
 	}
 
-	async fetch(url: string, init?: RequestInit): Promise<Response> {
+	async page(pageId: string | number): Promise<cheerio.Root> {
+		const {response, text} = await this.fetch(`index.php?pageid=${pageId}`);
+
+		const responseUrl = new URL(response.url);
+		if (
+			// 9999 is for logout
+			String(pageId) !== '9999'
+			&& (!responseUrl.pathname.endsWith('index.php')
+				|| responseUrl.searchParams.get('pageid') !== String(pageId))
+		) {
+			throw new LoggedOutError(responseUrl);
+		}
+
+		return load(text);
+	}
+
+	async fetch(
+		url: string,
+		init?: RequestInit,
+	): Promise<{
+		response: Response;
+		text: string;
+	}> {
 		const urlParsed = new URL(url, this.baseUrl);
 		if (this.#id) {
 			urlParsed.searchParams.set('id', this.#id);
@@ -112,13 +143,22 @@ export class SchulNetz {
 		headers.set('User-Agent', this.userAgent);
 		headers.set('Cookie', this.#cookieJar.toString());
 
-		const request = await fetch(urlParsed, init);
+		const response = await fetch(urlParsed, init);
 
-		const cookie = request.headers.get('Set-Cookie');
+		if (!response.ok) {
+			throw new StatusError(response.status, response.statusText);
+		}
+
+		const cookie = response.headers.get('Set-Cookie');
 		if (cookie) {
 			this.#cookieJar.add(cookie);
 		}
 
-		return request;
+		const text = await response.text();
+
+		return {
+			response,
+			text,
+		};
 	}
 }

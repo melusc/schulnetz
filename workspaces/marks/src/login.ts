@@ -1,5 +1,3 @@
-import {load} from 'cheerio';
-
 import {SchulNetz} from '#utils/schulnetz-api.js';
 
 export async function login(): Promise<{
@@ -9,16 +7,9 @@ export async function login(): Promise<{
 	const schulNetz = new SchulNetz();
 	await schulNetz.login();
 
-	const marksPageRequest = await schulNetz.fetch('index.php?pageid=21311', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-		},
-	});
+	const $ = await schulNetz.page('21311');
 
-	const marksPageText = await marksPageRequest.text();
-	const $marksPage = load(marksPageText);
-	const marksTable = $marksPage('h3:contains("Aktuelle Noten") ~ div > table');
+	const marksTable = $('h3:contains("Aktuelle Noten") ~ div > table');
 
 	if (marksTable.length === 0) {
 		throw new Error('Could not find table of marks.');
@@ -29,7 +20,7 @@ export async function login(): Promise<{
 	const result: cheerio.Cheerio[] = [];
 
 	for (const row of marksTable.find('> * > tr')) {
-		const $row = $marksPage(row);
+		const $row = $(row);
 
 		if ($row.css('display') === 'none') {
 			continue;
@@ -46,5 +37,5 @@ export async function login(): Promise<{
 		}
 	}
 
-	return {rows: result, $: $marksPage};
+	return {rows: result, $};
 }

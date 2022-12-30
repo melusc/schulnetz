@@ -26,7 +26,7 @@ program
 			It requests the scheduler page and that
 			permits us to use the scheduler-api
 		*/
-		await schulNetz.fetch('index.php?pageid=21312');
+		await schulNetz.page('21312');
 
 		const currentDate = new Date();
 
@@ -44,10 +44,9 @@ program
 		});
 		/* eslint-enable @typescript-eslint/naming-convention */
 
-		const schedulerApiRequest = await schulNetz.fetch(
+		const {text: schedulerApiBody} = await schulNetz.fetch(
 			`scheduler_processor.php?${parameters.toString()}&pageid=1`,
 		);
-		const schedulerApiBody = await schedulerApiRequest.text();
 
 		await schulNetz.logout();
 
