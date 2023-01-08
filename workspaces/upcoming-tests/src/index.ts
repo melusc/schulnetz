@@ -9,13 +9,15 @@ import {tableKeys} from './consts.js';
 import {filter} from './filter.js';
 import {getData} from './get-data.js';
 
-program
+const ut = program
 	.command('upcoming-tests')
 	.alias('ut')
+	.option('--no-filter', 'filter tests', true)
 	.action(async () => {
 		const unfiltered = await getData();
 
-		const filtered = await filter(unfiltered);
+		const shouldFilter = ut.getOptionValue('filter') !== false;
+		const filtered = shouldFilter ? await filter(unfiltered) : unfiltered;
 
 		const collator = new Intl.Collator(undefined, {
 			sensitivity: 'base',
