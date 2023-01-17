@@ -13,8 +13,8 @@ class IncorrectCredentialsError extends Error {
 }
 
 class LoggedOutError extends Error {
-	constructor(redirectUrl: URL) {
-		super('Logged out, redirected to ' + redirectUrl.href);
+	constructor(info: string) {
+		super(`Logged out: ${info}`);
 	}
 }
 
@@ -28,7 +28,7 @@ export class SchulNetz {
 	userAgent
 		= 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36';
 
-	baseUrl = 'https://www.schul-netz.com/ausserschwyz/';
+	baseUrl: undefined | string;
 
 	#cookieJar = new CookieJar();
 	#id: string | undefined;
@@ -42,12 +42,15 @@ export class SchulNetz {
 			ow.object.partialShape({
 				snUsername: ow.string,
 				snPassword: ow.string,
+				snSchool: ow.string.matches(/^[\w-]+$/i),
 			}),
 		);
-		const {snUsername: username, snPassword: password} = config;
+		const {snUsername: username, snPassword: password, snSchool} = config;
+
+		this.baseUrl = `https://www.schul-netz.com/${snSchool}/`;
 
 		const {response: loginHashResponse, text: loginHashText} = await this.fetch(
-			'https://www.schul-netz.com/ausserschwyz/loginto.php?pageid=21311&mode=0&lang=',
+			'loginto.php?pageid=21311&mode=0&lang=',
 		);
 
 		if (!loginHashResponse.ok) {
@@ -68,7 +71,7 @@ export class SchulNetz {
 		}).toString();
 
 		const {response: startPageResponse, text: startPageText} = await this.fetch(
-			'https://www.schul-netz.com/ausserschwyz/index.php?pageid=1',
+			'index.php?pageid=1',
 			{
 				method: 'POST',
 				headers: {
@@ -84,7 +87,7 @@ export class SchulNetz {
 
 		const startPageUrl = new URL(startPageResponse.url);
 
-		if (startPageUrl.pathname !== '/ausserschwyz/index.php') {
+		if (!startPageUrl.pathname.endsWith('/index.php')) {
 			throw new IncorrectCredentialsError();
 		}
 
@@ -119,20 +122,24 @@ export class SchulNetz {
 			&& (!responseUrl.pathname.endsWith('index.php')
 				|| responseUrl.searchParams.get('pageid') !== String(pageId))
 		) {
-			throw new LoggedOutError(responseUrl);
+			throw new LoggedOutError(`Redirected to ${responseUrl.href}`);
 		}
 
 		return load(text);
 	}
 
 	async fetch(
-		url: string,
+		path: string,
 		init?: RequestInit,
 	): Promise<{
 		response: Response;
 		text: string;
 	}> {
-		const urlParsed = new URL(url, this.baseUrl);
+		if (!this.baseUrl) {
+			throw new LoggedOutError('Did not call SchulNetz#login');
+		}
+
+		const urlParsed = new URL(path, this.baseUrl);
 		if (this.#id) {
 			urlParsed.searchParams.set('id', this.#id);
 		}
