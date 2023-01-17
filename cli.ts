@@ -7,4 +7,12 @@ import './workspaces/upcoming-tests/src/index.js';
 
 program.name('schulnetz').allowExcessArguments().enablePositionalOptions();
 
-await program.parseAsync();
+try {
+	await program.parseAsync();
+} catch (error: unknown) {
+	if (error instanceof Error) {
+		console.error(error.message);
+	} else {
+		throw error;
+	}
+}
