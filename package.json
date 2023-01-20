@@ -5,8 +5,8 @@
 	"type": "module",
 	"devDependencies": {
 		"@lusc/tsconfig": "^2.0.0",
-		"esbuild": "^0.16.17",
-		"prettier": "^2.8.2",
+		"esbuild": "^0.17.3",
+		"prettier": "^2.8.3",
 		"typescript": "^4.9.4",
 		"xo": "^0.53.1"
 	},
@@ -19,6 +19,6 @@
 		"workspaces/*"
 	],
 	"dependencies": {
-		"commander": "^9.5.0"
+		"commander": "^10.0.0"
 	}
 }
