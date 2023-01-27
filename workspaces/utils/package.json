@@ -10,7 +10,7 @@
 	"dependencies": {
 		"cheerio": "^1.0.0-rc.12",
 		"dotenv": "^16.0.3",
-		"ow": "^1.1.0",
-		"type-fest": "^3.5.2"
+		"ow": "^1.1.1",
+		"type-fest": "^3.5.3"
 	}
 }
