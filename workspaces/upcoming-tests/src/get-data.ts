@@ -13,7 +13,7 @@ export type TableRow = {
 	markierung: string;
 };
 
-export async function getData() {
+export async function getData(from: Date, to: Date) {
 	const schulNetz = new SchulNetz();
 	await schulNetz.login();
 
@@ -24,18 +24,13 @@ export async function getData() {
 		*/
 	await schulNetz.page('21312');
 
-	const currentDate = new Date();
-
-	const currentDateString = formatDate(currentDate);
-
-	const maxDate = new Date();
-	maxDate.setMonth(maxDate.getMonth() + 1);
-
+	const fromDateString = formatDate(from);
+	const toDateString = formatDate(to);
 	/* eslint-disable @typescript-eslint/naming-convention */
 	const parameters = new URLSearchParams({
-		curr_date: currentDateString,
-		min_date: currentDateString,
-		max_date: formatDate(maxDate),
+		curr_date: fromDateString,
+		min_date: fromDateString,
+		max_date: toDateString,
 		ansicht: 'klassenuebersicht',
 	});
 	/* eslint-enable @typescript-eslint/naming-convention */

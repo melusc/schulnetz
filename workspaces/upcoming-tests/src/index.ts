@@ -8,13 +8,16 @@ import {table} from 'table';
 import {tableKeys} from './consts.js';
 import {filter} from './filter.js';
 import {getData} from './get-data.js';
+import {getTimeRange, type TimeRange} from './time-range.js';
 
 const ut = program
 	.command('upcoming-tests')
 	.alias('ut')
 	.option('--no-filter', 'filter tests', true)
+	.option('-t, --time <range>', 'Time range', 'month' satisfies TimeRange)
 	.action(async () => {
-		const unfiltered = await getData();
+		const {from, to} = getTimeRange(ut.getOptionValue('time'));
+		const unfiltered = await getData(from, to);
 
 		const shouldFilter = ut.getOptionValue('filter') !== false;
 		const filtered = shouldFilter ? await filter(unfiltered) : unfiltered;
