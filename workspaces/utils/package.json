@@ -5,12 +5,12 @@
 	"type": "module",
 	"devDependencies": {
 		"@types/cheerio": "^0.22.31",
-		"@types/node": "^18.14.1"
+		"@types/node": "^18.14.4"
 	},
 	"dependencies": {
 		"cheerio": "^1.0.0-rc.12",
 		"dotenv": "^16.0.3",
 		"ow": "^1.1.1",
-		"type-fest": "^3.6.0"
+		"type-fest": "^3.6.1"
 	}
 }
