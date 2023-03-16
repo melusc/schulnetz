@@ -1,4 +1,4 @@
-import {type Mark} from './get-marks.js';
+import {type Mark} from './get-marks.ts';
 
 export function group(marks: readonly Mark[]): Map<string, Mark[]> {
 	const grouped = new Map<string, Mark[]>();

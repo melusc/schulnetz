@@ -5,10 +5,10 @@ import {program} from 'commander';
 import kleur from 'kleur';
 import {table} from 'table';
 
-import {tableKeys} from './consts.js';
-import {filter} from './filter.js';
-import {getData} from './get-data.js';
-import {getTimeRange, type TimeRange} from './time-range.js';
+import {tableKeys} from './consts.ts';
+import {filter} from './filter.ts';
+import {getData} from './get-data.ts';
+import {getTimeRange, type TimeRange} from './time-range.ts';
 
 const ut = program
 	.command('upcoming-tests')

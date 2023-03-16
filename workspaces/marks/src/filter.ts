@@ -1,6 +1,8 @@
 import ow from 'ow';
-import {type Mark} from './get-marks.js';
-import {getConfig} from '#utils/config.js';
+
+import {getConfig} from '#utils/config.ts';
+
+import {type Mark} from './get-marks.ts';
 
 export async function filter(marks: readonly Mark[]): Promise<Mark[]> {
 	const config = await getConfig('marks');

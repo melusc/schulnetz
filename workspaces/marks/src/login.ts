@@ -1,4 +1,4 @@
-import {SchulNetz} from '#utils/schulnetz-api.js';
+import {SchulNetz} from '#utils/schulnetz-api.ts';
 
 export async function login(): Promise<{
 	rows: cheerio.Cheerio[];
