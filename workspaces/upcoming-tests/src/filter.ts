@@ -1,8 +1,8 @@
 import ow from 'ow';
 
-import {getConfig} from '#utils/config.ts';
-
 import {type TableRow} from './get-data.ts';
+
+import {getConfig} from '#utils/config.ts';
 
 export async function filter(table: readonly TableRow[]): Promise<TableRow[]> {
 	const config = await getConfig('upcoming-tests');

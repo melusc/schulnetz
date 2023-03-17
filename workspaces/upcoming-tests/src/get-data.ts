@@ -3,10 +3,10 @@ import {writeFile} from 'node:fs/promises';
 import {load} from 'cheerio';
 import ow from 'ow';
 
-import {SchulNetz} from '#utils/schulnetz-api.ts';
-
 import {tableKeys} from './consts.ts';
 import {formatDate} from './format-date.ts';
+
+import {SchulNetz} from '#utils/schulnetz-api.ts';
 
 export type TableRow = {
 	start_date: string;
