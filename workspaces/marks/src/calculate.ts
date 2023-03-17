@@ -1,4 +1,4 @@
-import {type Mark} from './get-marks.js';
+import {type Mark} from './get-marks.ts';
 
 export type GroupedMark = {
 	mark: number;

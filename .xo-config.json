@@ -1,5 +1,12 @@
 {
 	"rules": {
-		"@typescript-eslint/indent": "off"
+		"@typescript-eslint/indent": "off",
+		"n/file-extension-in-import": [
+			"error",
+			"always",
+			{
+				".ts": "always"
+			}
+		]
 	}
 }

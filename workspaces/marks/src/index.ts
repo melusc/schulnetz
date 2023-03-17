@@ -3,11 +3,11 @@ import {program} from 'commander';
 import kleur from 'kleur';
 import {table} from 'table';
 
-import {calculate} from './calculate.js';
-import {filter} from './filter.js';
-import {getMarks} from './get-marks.js';
-import {group} from './group.js';
-import {login} from './login.js';
+import {calculate} from './calculate.ts';
+import {filter} from './filter.ts';
+import {getMarks} from './get-marks.ts';
+import {group} from './group.ts';
+import {login} from './login.ts';
 
 program.command('marks').action(async () => {
 	const {rows, $} = await login();

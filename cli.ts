@@ -2,8 +2,8 @@
 
 import {program} from 'commander';
 
-import './workspaces/marks/src/index.js';
-import './workspaces/upcoming-tests/src/index.js';
+import './workspaces/marks/src/index.ts';
+import './workspaces/upcoming-tests/src/index.ts';
 
 program.name('schulnetz').allowExcessArguments().enablePositionalOptions();
 

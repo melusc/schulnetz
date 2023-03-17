@@ -1,4 +1,5 @@
 import {readFile} from 'node:fs/promises';
+
 import ow from 'ow';
 import {type JsonObject} from 'type-fest';
 

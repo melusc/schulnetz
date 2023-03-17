@@ -4,7 +4,7 @@ import {load} from 'cheerio';
 import {parse} from 'dotenv';
 import ow from 'ow';
 
-import {CookieJar} from './cookie-jar.js';
+import {CookieJar} from './cookie-jar.ts';
 
 class IncorrectCredentialsError extends Error {
 	constructor() {
