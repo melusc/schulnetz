@@ -4,9 +4,9 @@
 	"private": true,
 	"type": "module",
 	"devDependencies": {
-		"@lusc/tsconfig": "^2.1.0",
-		"esbuild": "^0.17.11",
-		"prettier": "^2.8.4",
+		"@lusc/tsconfig": "^2.2.0",
+		"esbuild": "^0.17.12",
+		"prettier": "^2.8.6",
 		"typescript": "^5.0.2",
 		"xo": "^0.53.1"
 	},
