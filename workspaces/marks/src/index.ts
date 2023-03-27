@@ -26,20 +26,28 @@ program.command('marks').action(async () => {
 		]);
 	}
 
-	const summary: string[][] = [];
-
-	for (const {key, pretty} of [
-		{key: 'average', pretty: 'Average'},
-		{key: 'compensateDouble', pretty: 'Compensate double'},
-		{key: 'amountFailing', pretty: 'Amount failing'},
-	] as const) {
-		const value = result[key];
-
-		summary.push([
-			kleur.blue(pretty),
-			kleur.yellow(key === 'average' ? value.toFixed(2) : value),
-		]);
-	}
+	const summary: string[][] = [
+		[
+			kleur.blue('Average'),
+			(result.average < 4 ? kleur.red : kleur.yellow)(
+				result.average.toFixed(2),
+			),
+		],
+		[
+			kleur.blue('Compensate double'),
+			`${kleur.green(result.plus)} - 2 * ${kleur.red(
+				result.minus,
+			)} = ${(result.compensateDouble < 0 ? kleur.red : kleur.yellow)(
+				result.compensateDouble,
+			)}`,
+		],
+		[
+			kleur.blue('Amount failing'),
+			(result.amountFailing > 3 ? kleur.red : kleur.yellow)(
+				result.amountFailing,
+			),
+		],
+	];
 
 	console.log(table(coursesTable));
 	console.log(table(summary));

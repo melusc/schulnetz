@@ -7,6 +7,8 @@ export type GroupedMark = {
 };
 
 export function calculate(grouped: ReadonlyMap<string, Mark[]>): {
+	plus: number;
+	minus: number;
 	compensateDouble: number;
 	average: number;
 	amountFailing: number;
@@ -16,7 +18,8 @@ export function calculate(grouped: ReadonlyMap<string, Mark[]>): {
 
 	let average = 0;
 	let amountFailing = 0;
-	let compensateDouble = 0;
+	let plus = 0;
+	let minus = 0;
 
 	for (const [groupName, group] of grouped) {
 		let sum = 0;
@@ -39,14 +42,17 @@ export function calculate(grouped: ReadonlyMap<string, Mark[]>): {
 		average += rounded;
 		if (rounded < 4) {
 			++amountFailing;
-			compensateDouble += (rounded - 4) * 2;
+			minus += 4 - rounded;
 		} else {
-			compensateDouble += rounded - 4;
+			plus += rounded - 4;
 		}
 	}
 
 	return {
-		compensateDouble,
+		plus,
+		minus,
+		// prettier-ignore
+		compensateDouble: plus - (2 * minus),
 		average: average / marksResult.length,
 		amountFailing,
 		marks: marksResult,
