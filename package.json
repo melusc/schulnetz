@@ -5,10 +5,10 @@
 	"type": "module",
 	"devDependencies": {
 		"@lusc/tsconfig": "^2.2.0",
-		"esbuild": "^0.17.14",
+		"esbuild": "^0.17.15",
 		"prettier": "^2.8.7",
-		"typescript": "^5.0.3",
-		"xo": "^0.53.1"
+		"typescript": "^5.0.4",
+		"xo": "^0.54.0"
 	},
 	"scripts": {
 		"build": "tsc && yarn esbuild cli.ts --bundle --packages=external --outfile=dist/cli.js --format=esm --sourcemap",

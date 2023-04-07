@@ -16,7 +16,7 @@ const ut = program
 	.option('--no-filter', 'filter tests', true)
 	.option('-t, --time <range>', 'Time range', 'month' satisfies TimeRange)
 	.action(async () => {
-		const {from, to} = getTimeRange(ut.getOptionValue('time'));
+		const {from, to} = getTimeRange(ut.getOptionValue('time') as string);
 		const unfiltered = await getData(from, to);
 
 		const shouldFilter = ut.getOptionValue('filter') !== false;
