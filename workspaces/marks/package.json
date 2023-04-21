@@ -5,7 +5,7 @@
 	"type": "module",
 	"devDependencies": {
 		"@types/cheerio": "^0.22.31",
-		"@types/node": "^18.15.11"
+		"@types/node": "^18.15.12"
 	},
 	"dependencies": {
 		"cheerio": "^1.0.0-rc.12",
