@@ -5,8 +5,8 @@
 	"type": "module",
 	"devDependencies": {
 		"@lusc/tsconfig": "^2.2.0",
-		"esbuild": "^0.17.17",
-		"prettier": "^2.8.7",
+		"esbuild": "^0.17.18",
+		"prettier": "^2.8.8",
 		"typescript": "^5.0.4",
 		"xo": "^0.54.1"
 	},
