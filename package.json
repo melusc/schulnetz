@@ -1,6 +1,6 @@
 {
 	"name": "schulnetz-cli",
-	"packageManager": "yarn@3.5.0",
+	"packageManager": "yarn@3.5.1",
 	"private": true,
 	"type": "module",
 	"devDependencies": {
@@ -8,7 +8,7 @@
 		"esbuild": "^0.17.18",
 		"prettier": "^2.8.8",
 		"typescript": "^5.0.4",
-		"xo": "^0.54.1"
+		"xo": "^0.54.2"
 	},
 	"scripts": {
 		"build": "tsc && yarn esbuild cli.ts --bundle --packages=external --outfile=dist/cli.js --format=esm --sourcemap",
