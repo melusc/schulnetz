@@ -6,7 +6,7 @@
 		"table": "^6.8.1"
 	},
 	"devDependencies": {
-		"@types/node": "^20.1.3"
+		"@types/node": "^20.2.1"
 	},
 	"name": "upcoming-tests",
 	"private": true,
