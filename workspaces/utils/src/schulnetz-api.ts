@@ -1,6 +1,6 @@
 import {readFile} from 'node:fs/promises';
 
-import {load} from 'cheerio';
+import {load, type CheerioAPI} from 'cheerio';
 import {parse} from 'dotenv';
 import ow from 'ow';
 
@@ -60,9 +60,7 @@ export class SchulNetz {
 		const $loginhash = load(loginHashText);
 		const loginhash = $loginhash('input[name="loginhash"]').val();
 
-		if (!loginhash) {
-			throw new Error('Failed to get loginhash input');
-		}
+		ow(loginhash, 'Failed to get loginhash', ow.string.nonBlank);
 
 		const loginRequestBody = new URLSearchParams({
 			login: username,
@@ -112,7 +110,7 @@ export class SchulNetz {
 		await this.page('9999');
 	}
 
-	async page(pageId: string | number): Promise<cheerio.Root> {
+	async page(pageId: string | number): Promise<CheerioAPI> {
 		const {response, text} = await this.fetch(`index.php?pageid=${pageId}`);
 
 		const responseUrl = new URL(response.url);

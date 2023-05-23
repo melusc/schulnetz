@@ -311,15 +311,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cheerio@npm:^0.22.31":
-  version: 0.22.31
-  resolution: "@types/cheerio@npm:0.22.31"
-  dependencies:
-    "@types/node": "*"
-  checksum: 8d73d22fdd384c290514dad6f9f4a436f5a90bc836bbe9b46fe4f557041a03484f0547291d0347185a806149f465355fc225dc87477b8cf5af5be307bb75e6a4
-  languageName: node
-  linkType: hard
-
 "@types/eslint@npm:^8.0.0":
   version: 8.37.0
   resolution: "@types/eslint@npm:8.37.0"
@@ -358,7 +349,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.2.1":
+"@types/node@npm:^20.2.1":
   version: 20.2.1
   resolution: "@types/node@npm:20.2.1"
   checksum: ed774afa6e9b4ad7868ed0182a8ca40ad0dd54815a70d3051b23fa850f3bca6bea4d0cb55e1fc769666786ac2cc4c1b37aeade313cb4c4634133f18ebcded496
@@ -2822,7 +2813,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "marks@workspace:workspaces/marks"
   dependencies:
-    "@types/cheerio": ^0.22.31
     "@types/node": ^20.2.1
     cheerio: ^1.0.0-rc.12
     dotenv: ^16.0.3
@@ -4037,7 +4027,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "utils@workspace:workspaces/utils"
   dependencies:
-    "@types/cheerio": ^0.22.31
     "@types/node": ^20.2.1
     cheerio: ^1.0.0-rc.12
     dotenv: ^16.0.3

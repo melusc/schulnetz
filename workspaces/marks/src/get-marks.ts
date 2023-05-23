@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 
+import type {Cheerio, CheerioAPI, Element} from 'cheerio';
 import ow from 'ow';
 
 export type Mark = {
@@ -9,8 +10,8 @@ export type Mark = {
 };
 
 export function getMarks(
-	rows: readonly cheerio.Cheerio[],
-	$: cheerio.Root,
+	rows: ReadonlyArray<Cheerio<Element>>,
+	$: CheerioAPI,
 ): Mark[] {
 	const marks: Mark[] = [];
 	const names: string[] = [];

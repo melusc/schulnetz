@@ -1,8 +1,10 @@
+import type {Cheerio, CheerioAPI, Element} from 'cheerio';
+
 import {SchulNetz} from '#utils/schulnetz-api.ts';
 
 export async function login(): Promise<{
-	rows: cheerio.Cheerio[];
-	$: cheerio.Root;
+	rows: Array<Cheerio<Element>>;
+	$: CheerioAPI;
 }> {
 	const schulNetz = new SchulNetz();
 	await schulNetz.login();
@@ -17,7 +19,7 @@ export async function login(): Promise<{
 
 	await schulNetz.logout();
 
-	const result: cheerio.Cheerio[] = [];
+	const result: Array<Cheerio<Element>> = [];
 
 	for (const row of marksTable.find('> * > tr')) {
 		const $row = $(row);
