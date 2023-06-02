@@ -1,13 +1,13 @@
 {
 	"name": "schulnetz-cli",
-	"packageManager": "yarn@3.5.1",
+	"packageManager": "yarn@3.6.0",
 	"private": true,
 	"type": "module",
 	"devDependencies": {
 		"@lusc/tsconfig": "^2.2.0",
 		"esbuild": "^0.17.19",
 		"prettier": "^2.8.8",
-		"typescript": "^5.0.4",
+		"typescript": "^5.1.3",
 		"xo": "^0.54.2"
 	},
 	"scripts": {
