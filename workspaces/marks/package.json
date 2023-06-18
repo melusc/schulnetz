@@ -4,7 +4,7 @@
 	"packageManager": "yarn@3.6.0",
 	"type": "module",
 	"devDependencies": {
-		"@types/node": "^20.2.5"
+		"@types/node": "^20.3.1"
 	},
 	"dependencies": {
 		"cheerio": "^1.0.0-rc.12",
